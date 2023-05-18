@@ -9,3 +9,5 @@ reader = Reader(file_destination)
 
 robot = Robot(0.5)
 robot.startup_procedure()
+
+print("This is a test")
