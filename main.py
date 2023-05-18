@@ -1,4 +1,4 @@
-from io import Reader
+from rnw import Reader
 from robot import Robot
 
 file_destination = 'D:\\Development\\IntelliJ\\ControllApp\\control.arm'
