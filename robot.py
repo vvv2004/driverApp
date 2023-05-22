@@ -1,3 +1,4 @@
+import math
 import time
 
 from adafruit_servokit import ServoKit
@@ -26,8 +27,14 @@ class Robot:
         self.kit.servo[1].angle = initial_values[1]
         self.kit.servo[4].angle = initial_values[4]
 
+        self._take_robot_to_working_position()
+
     def _take_robot_to_working_position(self):
-        return self._speed
+        speed = self._speed
+
+        self.move_motor(0, 30, speed)
+        self.move_motor(1, 180, speed)
+        self.move_motor(4, 180, speed)
 
     def move_motor(self, motor_index, target_angle, speed):
         # if the index is not occupied with servo on the board
@@ -39,11 +46,11 @@ class Robot:
             motor_angle = motor.angle  # get the angle
 
             # move gradually until the desired angle is reached
-            while motor_angle != target_angle:
+            while math.ceil(motor_angle) != target_angle:
                 if motor_angle < target_angle:
                     motor_angle += speed
                 elif motor_angle > target_angle:
                     motor_angle -= speed
 
-                # time.sleep(.1)
+                time.sleep(.1)
                 motor.angle = motor_angle
