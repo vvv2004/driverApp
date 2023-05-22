@@ -42,7 +42,5 @@ class Robot:
                 elif motor_angle > target_angle:
                     motor_angle -= speed
 
-                time.sleep(.1)
+                # time.sleep(.1)
                 motor.angle = motor_angle
-
-
