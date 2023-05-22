@@ -22,9 +22,12 @@ class Robot:
     def _take_robot_to_initial_position(self):
         speed = self._speed
 
-        self.move_motor(0, initial_values[0], speed)
-        self.move_motor(1, initial_values[1], speed)
-        self.move_motor(4, initial_values[2], speed)
+        self.kit.servo[0].angle = initial_values[0]
+        self.kit.servo[1].angle = initial_values[1]
+        self.kit.servo[4].angle = initial_values[4]
+
+    def _take_robot_to_working_position(self):
+        return self._speed
 
     def move_motor(self, motor_index, target_angle, speed):
         # if the index is not occupied with servo on the board
