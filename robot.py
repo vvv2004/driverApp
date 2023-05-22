@@ -43,3 +43,6 @@ class Robot:
                     motor_angle -= speed
 
                 time.sleep(.1)
+                motor.angle = motor_angle
+
+
