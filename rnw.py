@@ -26,7 +26,7 @@ class Reader:
 
         return output
 
+
 class Writer:
     def __init__(self, file_destination):
         self._file_destination = file_destination
-
