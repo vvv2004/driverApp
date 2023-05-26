@@ -29,6 +29,11 @@ class Robot:
 
         self._take_robot_to_working_position()
 
+    def reset_motors(self):
+        self.kit.servo[0].angle = None
+        self.kit.servo[1].angle = None
+        self.kit.servo[4].angle = None
+
     def _take_robot_to_working_position(self):
         speed = self._speed
 
