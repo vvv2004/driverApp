@@ -7,8 +7,8 @@ from robot import Robot
 # while True:
 #     print(reader.read_from_file())
 
-robot = Robot(0.05)
+robot = Robot(0.025)
 robot.reset_motors()
-#robot.startup_procedure()
+# robot.startup_procedure()
 
 print("This is a test")
