@@ -1,10 +1,23 @@
 import struct
 
+from robot import Robot
+
+def get_displacement_data_test():
+    output_array = []
+
+    for i in range(6):
+        if i == 2:
+            output_array.append(85.0)
+        else:
+            output_array.append(0.0)
+
+    return output_array
 
 class Reader:
 
     def __init__(self, file_destination):
         self._file_destination = file_destination
+        # self.robot = robot
 
     def read_from_file(self):
         output = []
@@ -30,3 +43,28 @@ class Reader:
 class Writer:
     def __init__(self, file_destination):
         self._file_destination = file_destination
+
+    def write_to_file(self, data: Robot):
+
+        with open(self._file_destination, "wb") as file:
+            try:
+                for double in data.get_displacement_data():
+                    binary_data = struct.pack('>' + 'd', double)
+                    file.write(binary_data)
+
+                boolean_data = struct.pack('?', False)
+                file.write(boolean_data)
+                boolean_data = struct.pack('?', True)
+                file.write(boolean_data)
+            except Exception:
+                print('Java is writing')
+
+    # def write_to_file_test(self):
+    #     with open(self._file_destination, "wb") as file:
+    #         try:
+    #             for double in get_displacement_data_test():
+    #                 binary_data = struct.pack('>' + 'd', double)
+    #                 file.write(binary_data)
+    #
+    #         except Exception:
+    #             print('Java is writing')

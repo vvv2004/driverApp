@@ -1,14 +1,23 @@
-from rnw import Reader
+from rnw import *
 from robot import Robot
 
-# file_destination = 'D:\\Development\\IntelliJ\\ControllApp\\control.arm'
-# reader = Reader(file_destination)
-
-# while True:
-#     print(reader.read_from_file())
+file_destination = 'D:\\Development\\IntelliJ\\ControllApp\\control.arm'
+reader = Reader(file_destination)
 
 robot = Robot(0.025)
 robot.reset_motors()
-# robot.startup_procedure()
+robot.startup_procedure()
 
-print("This is a test")
+
+writer = Writer(file_destination)
+writer.write_to_file(robot)
+
+
+while True:
+    data = reader.read_from_file()
+
+    for i in range(6):
+        robot.move_joint(i, data[i])
+
+
+# print("This is a test")
