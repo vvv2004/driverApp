@@ -52,10 +52,6 @@ class Writer:
                     binary_data = struct.pack('>' + 'd', double)
                     file.write(binary_data)
 
-                boolean_data = struct.pack('?', False)
-                file.write(boolean_data)
-                boolean_data = struct.pack('?', True)
-                file.write(boolean_data)
             except Exception:
                 print('Java is writing')
 
