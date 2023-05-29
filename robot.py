@@ -96,13 +96,16 @@ class Robot:
     def _take_robot_to_working_position(self):
         speed = self._speed
 
-        for motor, value in maxb_values.items():
-            self.move_motor(motor, value, speed)
+        self.move_motor(0, maxb_values[0], speed)
+        self.move_motor(4, maxf_values[4], speed)
+        self.move_motor(5, initial_values[5] + 20, speed)
+        self.move_motor(8, maxb_values[8], speed)
 
     def say_hi(self):
         self.kit.servo[11].angle = 120
         self.move_motor(8, 180, speed=0.05)
-        self.move_motor(8, 25, speed=0.05)
+        time.sleep(.1)
+        self.move_motor(8, 23, speed=0.05)
         self.kit.servo[11].angle = 20
 
     def move_motor(self, motor_index, target_angle, speed):
