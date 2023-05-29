@@ -32,9 +32,13 @@ maxf_values = {
 }
 
 constraints = {
-    0: None,
+    0: 65.0,
     1: None,
-    4: 85.0
+    4: 85.0,
+    5: 77.5,
+    8: 78.5,
+    11: 60
+
 
 }
 
@@ -67,7 +71,7 @@ class Robot:
         speed = self._speed
 
         self.kit.servo[0].angle = initial_values[0]
-        self.kit.servo[1].angle = initial_values[1]
+        # self.kit.servo[1].angle = initial_values[1]
         self.kit.servo[4].angle = initial_values[4]
         self.kit.servo[5].angle = initial_values[5]
         self.kit.servo[8].angle = initial_values[8]
@@ -82,7 +86,7 @@ class Robot:
         self._take_robot_to_working_position()
 
     def move_joint(self, joint_to_move, new_value):
-        if joint_to_move != 1:
+        if joint_to_move != 0:
             self.move_motor(correlation_bma[joint_to_move], new_value, self._speed)
         else:
             # to do synchronising
@@ -104,7 +108,9 @@ class Robot:
     def say_hi(self):
         self.kit.servo[11].angle = 120
         self.move_motor(8, 180, speed=0.5)
+        time.sleep(.1)
         self.move_motor(8, 23, speed=0.5)
+        time.sleep(.1)
         self.move_motor(8, 180, speed=0.5)
         time.sleep(.1)
         self.move_motor(8, 23, speed=0.05)
@@ -130,20 +136,21 @@ class Robot:
                 motor.angle = motor_angle
 
     def get_data(self):
-        output_array = []
+        output_array = [0]
 
-        for i in range(6):
+        for i in range(1, 6):
             output_array.append(self.kit.servo[correlation_bma[i]].angle)
 
         return output_array
 
     def get_displacement_data(self):
         data_as_angles = self.get_data()
-        output_array = []
+        output_array = [0]
 
-        for i in range(6):
-            midpoint = constraints[correlation_bma[i]]
+        for i in range(1, 6):
+            midpoint_of_range = constraints[correlation_bma[i]]
+            min_value = maxb_values[correlation_bma[i]]
 
-            output_array.append(data_as_angles[i] - midpoint)
+            output_array.append(data_as_angles[i] - midpoint_of_range - min_value)
 
         return output_array
