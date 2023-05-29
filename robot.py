@@ -66,9 +66,16 @@ class Robot:
     def _take_robot_to_initial_position(self):
         speed = self._speed
 
-        # self.kit.servo[0].angle = initial_values[0]
-        # self.kit.servo[1].angle = initial_values[1]
+        self.kit.servo[0].angle = initial_values[0]
+        self.kit.servo[1].angle = initial_values[1]
         self.kit.servo[4].angle = initial_values[4]
+        self.kit.servo[5].angle = initial_values[5]
+        self.kit.servo[8].angle = initial_values[8]
+        self.kit.servo[11].angle = initial_values[11]
+
+        time.sleep(2)
+
+        self.say_hi()
 
         time.sleep(3)
 
@@ -78,7 +85,7 @@ class Robot:
         if joint_to_move != 1:
             self.move_motor(correlation_bma[joint_to_move], new_value, self._speed)
         else:
-            #to do synchronising
+            # to do synchronising
             return 0
 
     def reset_motors(self):
@@ -89,9 +96,14 @@ class Robot:
     def _take_robot_to_working_position(self):
         speed = self._speed
 
-        # self.move_motor(0, 30, speed)
-        # self.move_motor(1, 180, speed)
-        self.move_motor(4, 180, speed)
+        for motor, value in maxb_values.items():
+            self.move_motor(motor, value, speed)
+
+    def say_hi(self):
+        self.kit.servo[11].angle = 120
+        self.move_motor(8, 180, speed=0.05)
+        self.move_motor(8, 25, speed=0.05)
+        self.kit.servo[11].angle = 20
 
     def move_motor(self, motor_index, target_angle, speed):
         # if the index is not occupied with servo on the board
