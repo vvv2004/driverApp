@@ -4,7 +4,7 @@ from robot import Robot
 file_destination = '/home/robot/ControllApp/control.arm'
 reader = Reader(file_destination)
 
-robot = Robot(0.025, file_destination)
+robot = Robot(0.045, file_destination)
 robot.reset_motors()
 robot.startup_procedure()
 
