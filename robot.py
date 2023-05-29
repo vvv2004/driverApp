@@ -16,18 +16,18 @@ initial_values = {
 min_values = {
     0: 25,
     1: None,
-    4: 180,
+    4: 10,
     5: 25,
-    8: 180,
+    8: 23,
     11: 0
 }
 
 max_values = {
     0: 155,
     1: None,
-    4: 10,
+    4: 180,
     5: 180,
-    8: 23,
+    8: 180,
     11: 120
 }
 
@@ -104,10 +104,10 @@ class Robot:
     def _take_robot_to_working_position(self):
         speed = self._speed
 
-        self.move_motor(4, max_values[4], speed)
+        self.move_motor(4, min_values[4], speed)
         self.move_motor(0, min_values[0], speed)
         self.move_motor(5, initial_values[5] + 40, speed)
-        self.move_motor(8, min_values[8], speed)
+        self.move_motor(8, max_values[8], speed)
 
     def say_hi(self):
         self.kit.servo[11].angle = 120
