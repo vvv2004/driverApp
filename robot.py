@@ -13,7 +13,7 @@ initial_values = {
     11: 20
 }
 
-maxb_values = {
+min_values = {
     0: 25,
     1: None,
     4: 180,
@@ -22,7 +22,7 @@ maxb_values = {
     11: 0
 }
 
-maxf_values = {
+max_values = {
     0: 155,
     1: None,
     4: 10,
@@ -85,7 +85,11 @@ class Robot:
 
         self._take_robot_to_working_position()
 
-    def move_joint(self, joint_to_move, new_value):
+    def move_joint(self, joint_to_move, new_value_as_displacement):
+        motor_index = correlation_bma[joint_to_move]
+
+        new_value = new_value_as_displacement + constraints[motor_index] + min_values[motor_index]
+
         if joint_to_move != 0:
             self.move_motor(correlation_bma[joint_to_move], new_value, self._speed)
         else:
@@ -100,10 +104,10 @@ class Robot:
     def _take_robot_to_working_position(self):
         speed = self._speed
 
-        self.move_motor(4, maxf_values[4], speed)
-        self.move_motor(0, maxb_values[0], speed)
+        self.move_motor(4, max_values[4], speed)
+        self.move_motor(0, min_values[0], speed)
         self.move_motor(5, initial_values[5] + 40, speed)
-        self.move_motor(8, maxb_values[8], speed)
+        self.move_motor(8, min_values[8], speed)
 
     def say_hi(self):
         self.kit.servo[11].angle = 120
@@ -148,9 +152,9 @@ class Robot:
         output_array = [0]
 
         for i in range(1, 6):
-            midpoint_of_range = constraints[correlation_bma[i]]
-            min_value = maxb_values[correlation_bma[i]]
+            max_displacement = constraints[correlation_bma[i]]
+            min_value = min_values[correlation_bma[i]]
 
-            output_array.append(data_as_angles[i] - midpoint_of_range - min_value)
+            output_array.append(data_as_angles[i] - max_displacement - min_value)
 
         return output_array

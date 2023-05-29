@@ -29,11 +29,7 @@ class Reader:
                 byte_array = file.read(num_of_doubles * 8)
                 doubles = struct.unpack('>' + 'd' * num_of_doubles, byte_array)
 
-                # byte_array = file.read(2)
-                # booleans = struct.unpack('?' * 2, byte_array)
-
                 output = doubles
-                output += booleans
             except Exception:
                 print("Java is writing0")
 
