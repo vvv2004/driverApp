@@ -35,7 +35,7 @@ class Reader:
                 output = doubles
                 output += booleans
             except Exception:
-                print("Java is writing")
+                print("Java is writing0")
 
         return output
 
@@ -53,7 +53,7 @@ class Writer:
                     file.write(binary_data)
 
             except Exception:
-                print('Java is writing')
+                print('Java is writing1')
 
     # def write_to_file_test(self):
     #     with open(self._file_destination, "wb") as file:

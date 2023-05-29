@@ -5,12 +5,33 @@ import time
 from adafruit_servokit import ServoKit
 
 initial_values = {
-    0: 100,
+    0: 90,
     1: 110,
-    4: 110
+    4: 110,
+    5: 110,
+    8: 180,
+    11: 20
 }
 
-midpoints = {
+maxb_values = {
+    0: 25,
+    1: None,
+    4: 180,
+    5: 25,
+    8: 180,
+    11: 0
+}
+
+maxf_values = {
+    0: 155,
+    1: None,
+    4: 10,
+    5: 180,
+    8: 23,
+    11: 120
+}
+
+constraints = {
     0: None,
     1: None,
     4: 85.0
@@ -94,7 +115,7 @@ class Robot:
     def get_data(self):
         output_array = []
 
-        for i in range(7):
+        for i in range(6):
             output_array.append(self.kit.servo[correlation_bma[i]].angle)
 
         return output_array
@@ -103,8 +124,8 @@ class Robot:
         data_as_angles = self.get_data()
         output_array = []
 
-        for i in range(7):
-            midpoint = midpoints[correlation_bma[i]]
+        for i in range(6):
+            midpoint = constraints[correlation_bma[i]]
 
             output_array.append(data_as_angles[i] - midpoint)
 
